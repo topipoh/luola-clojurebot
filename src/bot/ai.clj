@@ -1,3 +1,6 @@
 (ns bot.ai)
 
-(defn foo [] ":)")
+(defn get-action
+  [board]
+  {:action "move"
+   :direction "east"})

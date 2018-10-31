@@ -1,6 +1,7 @@
 (ns bot.core
   (require [clojure.tools.cli :refer [parse-opts]])
-  (require [bot.api :refer :all]))
+  (require [bot.api :refer :all])
+  (require [bot.ai :refer :all]))
 
 (def required-opts #{})
 
@@ -14,9 +15,14 @@
   (while
     true
     (do
-      (println (get-board url name))
-      (act url pass name "move" "east")
-      (Thread/sleep (/ turn-duration 2)))))
+      (let [board (get-board url name)
+            action-map (get-action board)
+            action (:action action-map)
+            direction (:direction action-map)]
+        (println board)
+        (println action direction)
+        (act url pass name action direction)
+        (Thread/sleep (/ turn-duration 2))))))
 
 (defn -main [& args]
   (let [{:keys [options arguments summary errors]} (parse-opts args

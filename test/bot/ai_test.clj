@@ -2,6 +2,11 @@
   (:require [clojure.test :refer :all]
             [bot.ai :refer :all]))
 
-(deftest test-foo
-  (testing "FIXME, I fail."
-    (is (= ":)" (foo)))))
+(deftest test-get-action
+  (testing "AI should not walk into walls"
+    (let [board "#####
+                 #@..#
+                 #####"]
+      (is (= {:action "move"
+              :direction "east"}
+             (get-action board))))))
