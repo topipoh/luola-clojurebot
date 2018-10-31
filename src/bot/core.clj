@@ -9,7 +9,15 @@
   [opts]
   (not-every? opts required-opts))
 
-;base url http://localhost:8080
+(defn main-loop
+  [url pass name turn-duration]
+  (while
+    true
+    (do
+      (println (get-board url name))
+      (act url pass name "move" "east")
+      (Thread/sleep (/ turn-duration 2)))))
+
 (defn -main [& args]
   (let [{:keys [options arguments summary errors]} (parse-opts args
                                                                [["-h" "--help" "Print this help" :default false]
@@ -17,9 +25,11 @@
                                                                 ["-b" "--bots BOTS" "Number of bots to spawn" :parse-fn #(Integer. %) :default 1]
                                                                 ["-p" "--pass PASS" "Bot password" :default "MySecret"]
                                                                 ["-n" "--name NAME" "Name of the bot" :default "delet0r"]])]
-    (if (or (:help options)
-            (missing-required? options))
-      (println summary)
-      (do
-        (println options)
-        (add-bot (:url options) (:pass options) (:name options))))))
+    (let [{:keys [help url pass name]} options]
+      (if (or help
+              (missing-required? options))
+        (println summary)
+        (do
+          (println options)
+          (add-player url pass name)
+          (main-loop url pass name (turn-duration url)))))))
