@@ -8,5 +8,4 @@
                  [clj-http "3.9.1"]
                  [shams/priority-queue "0.1.2"]]
 
-  :main "bot.core")
-
+  :main bot.core)
