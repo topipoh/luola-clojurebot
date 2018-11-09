@@ -30,6 +30,7 @@
     <orderEntry type="library" name="Leiningen: org.clojure/tools.nrepl:0.2.12" level="project" />
     <orderEntry type="library" name="Leiningen: potemkin:0.4.5" level="project" />
     <orderEntry type="library" name="Leiningen: riddley:0.1.12" level="project" />
+    <orderEntry type="library" name="Leiningen: shams/priority-queue:0.1.2" level="project" />
     <orderEntry type="library" name="Leiningen: slingshot:0.12.2" level="project" />
   </component>
 </module>
