@@ -1,6 +1,14 @@
 (ns bot.board-test
   (:require [clojure.test :refer :all]
-            [bot.board :refer :all]))
+            [bot.board :refer :all]
+            [clojure.java.io :as io]))
+
+(deftest test-parse-board
+  (let [board (slurp (io/resource "case1.txt"))]
+    (is (= [ [\# \# \# \# \#]
+             [\# \@ \. \. \#]
+             [\# \# \# \# \#]]
+           (parse-board board)))))
 
 (deftest test-get-neighbors
   (let [board "..########
