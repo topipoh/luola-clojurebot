@@ -10,6 +10,19 @@
              [\# \# \# \# \#]]
            (parse-board board)))))
 
+(deftest test-walkable?
+  (is (true? (walkable? \.)))
+  (is (true? (walkable? \$)))
+  (is (false? (walkable? \#)))
+  (is (false? (walkable? \e))))
+
+(deftest test-maybe-get
+  (let [board [ [\. \$] [\# \e]]]
+    (is (= \. (maybe-get board 0 0)))
+    (is (= \e (maybe-get board 1 1)))
+    (is (nil? (maybe-get board 1 2)))
+    (is (nil? (maybe-get board -1 0)))))
+
 (deftest test-get-neighbors
   (let [board (parse-board (load-resource "case6.txt"))]
     (is (= #{ {:x 1 :y 0} {:x 0 :y 1}}

@@ -7,5 +7,16 @@
        (map char-array)
        (map seq)))
 
+(def walkable-tiles
+  #{\. \$})
+
+(defn walkable? [tile]
+  (contains? walkable-tiles tile))
+
+(defn maybe-get [board x y]
+  (some-> board
+          (get y)
+          (get x)))
+
 (defn get-neighbors [board location]
   #{})
