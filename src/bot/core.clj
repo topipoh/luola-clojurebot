@@ -3,7 +3,7 @@
   (require [bot.api :refer :all])
   (require [bot.ai :refer :all]))
 
-(def required-opts #{})
+(defonce required-opts #{})
 
 (defn missing-required?
   "Returns true if opts is missing any of the required-opts"
