@@ -20,7 +20,6 @@ Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
 
 ## TODO
-* parse the board
 * implement dijkstra
 
 ## DONE
@@ -28,3 +27,6 @@ your option) any later version.
 * always walk to the right
 * write a test
 * REPL
+* parse the board
+* get neighboring tiles
+* calculate costs for tiles

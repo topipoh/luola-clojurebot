@@ -36,3 +36,13 @@
            (get-neighbors board {:x 0 :y 0})))
     (is (= #{ {:x 7 :y 3} {:x 7 :y 1} {:x 8 :y 2}}
            (get-neighbors board {:x 7 :y 2})))))
+
+(deftest test-costs
+  (let [board (parse-board (load-resource "case7.txt"))
+        safe-location {:x 2 :y 4}
+        dangerous-location {:x 8 :y 1}
+        most-dangerous-location {:x 11 :y 2}
+        cost-map (costs board)]
+    (is (< (get cost-map safe-location)
+           (get cost-map dangerous-location)
+           (get cost-map most-dangerous-location)))))
