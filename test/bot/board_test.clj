@@ -18,10 +18,17 @@
 
 (deftest test-maybe-get
   (let [board [ [\. \$] [\# \e]]]
-    (is (= \. (maybe-get board 0 0)))
-    (is (= \e (maybe-get board 1 1)))
-    (is (nil? (maybe-get board 1 2)))
-    (is (nil? (maybe-get board -1 0)))))
+    (is (= \. (maybe-get board {:x 0  :y 0})))
+    (is (= \e (maybe-get board {:x 1  :y 1})))
+    (is (nil? (maybe-get board {:x 1  :y 2})))
+    (is (nil? (maybe-get board {:x -1 :y 0})))))
+
+(deftest test-cardinal-directions
+  (is (= #{{:x -1 :y 0}
+           {:x 1  :y 0}
+           {:x 0  :y -1}
+           {:x 0  :y 1}}
+         (cardinal-directions {:x 0 :y 0}))))
 
 (deftest test-get-neighbors
   (let [board (parse-board (load-resource "case6.txt"))]
