@@ -68,11 +68,11 @@
      (absolute-difference (:y a) (:y b))))
 
 (defn cost-for-location [location monsters]
-  (->> monsters
-       (map #(manhattan-distance location %))
-       (filter #(< % 4))
-       (map #(- 4 %))
-       (reduce +)))
+  (+ 1 (->> monsters
+            (map #(manhattan-distance location %))
+            (filter #(< % 4))
+            (map #(- 4 %))
+            (reduce +))))
 
 (defn costs [board]
   (let [monsters (monsters board)]

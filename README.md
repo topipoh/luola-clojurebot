@@ -20,9 +20,13 @@ Distributed under the Eclipse Public License either version 1.0 or (at
 your option) any later version.
 
 ## TODO
-* implement dijkstra
+* use dijkstra result to choose action
+* cleanup dijkstra implementation
+* print board with costs
+* print board with paths
 
 ## DONE
+* implement dijkstra
 * add bot to server
 * always walk to the right
 * write a test
