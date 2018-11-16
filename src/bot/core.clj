@@ -21,8 +21,7 @@
             direction (:direction action-map)]
         (println board)
         (println action direction)
-        (act url pass name action direction)
-        (Thread/sleep (/ turn-duration 2))))))
+        (act url pass name action direction)))))
 
 (defn -main [& args]
   (let [{:keys [options arguments summary errors]} (parse-opts args

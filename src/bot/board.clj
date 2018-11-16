@@ -8,9 +8,13 @@
             (map vec))))
 
 (def walkable-tiles
-  #{\. \$})
+  #{\. \$ \:})
 
 (def monster-tile \e)
+
+(def my-tile \@)
+
+(def treasure-tile \$)
 
 (defn walkable? [tile]
   (contains? walkable-tiles tile))
@@ -55,10 +59,17 @@
 (defn locations-by-type [board tile-char]
   (->> board
        (get-tiles)
-       (filter #(= tile-char (:tile %)))))
+       (filter #(= tile-char (:tile %)))
+       (map #(select-keys % [:x :y]))))
 
 (defn monsters [board]
   (locations-by-type board monster-tile))
+
+(defn treasures [board]
+  (locations-by-type board treasure-tile))
+
+(defn my-location [board]
+  (first (locations-by-type board my-tile)))
 
 (defn absolute-difference [a b]
   (Math/abs (- b a)))
@@ -83,3 +94,11 @@
                (select-keys location [:x :y])
                (cost-for-location location monsters)))
            {}))))
+
+(defn which-direction [location0 location1]
+  (let [x0 (:x location0) y0 (:y location0)
+        x1 (:x location1) y1 (:y location1)]
+    (cond (< x0 x1) "east"
+          (> x0 x1) "west"
+          (< y0 y1) "south"
+          (> y0 y1) "north")))

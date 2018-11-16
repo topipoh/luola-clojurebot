@@ -1,4 +1,3 @@
-
 (ns bot.dijkstra
   (:require [shams.priority-queue :as pq])
   (:require [bot.board :as board]))
@@ -50,14 +49,32 @@
 
 ; TODO: not happy with the implementation, could be simpler?
 (defn dijkstra [board start]
-  (loop [frontier (create-queue [[start 0]])
-         came-from {start nil}
-         cost-so-far {start 0}
-         costs (board/costs board)]
-    (if (not (empty? frontier))
-      (let [[current _] (peek frontier)
-            neighbors (board/get-neighbors board current)
-            [frontier came-from cost-so-far costs] (reduce reduce-fn [(pop frontier) came-from cost-so-far costs current] neighbors) ]
-        (recur frontier came-from cost-so-far costs))
-      {:came-from came-from
-       :cost-so-far cost-so-far})))
+  (time (loop [frontier (create-queue [[start 0]])
+               came-from {start nil}
+               cost-so-far {start 0}
+               costs (board/costs board)]
+          (if (seq frontier)
+            (let [[current _] (peek frontier)
+                  neighbors (board/get-neighbors board current)
+                  [frontier came-from cost-so-far costs] (reduce
+                                                           reduce-fn
+                                                           [(pop frontier) came-from cost-so-far costs current]
+                                                           neighbors)]
+              (recur frontier came-from cost-so-far costs))
+            {:came-from   came-from
+             :cost-so-far cost-so-far}))))
+
+(defn costs-array [cost-so-far board]
+  (let [x-max (count (get board 0))
+        y-max (count board)]
+    (for [y (range 0 y-max)]
+      (for [x (range 0 x-max)]
+        (get cost-so-far {:x x :y y} 0)))))
+
+(defn backtrack [came-from start target]
+  (when (and (contains? came-from start) (contains? came-from target))
+    (loop [current target
+           previous (get came-from target)]
+      (if (= start previous)
+        current
+        (recur previous (get came-from current))))))

@@ -46,3 +46,7 @@
     (is (< (get cost-map safe-location)
            (get cost-map dangerous-location)
            (get cost-map most-dangerous-location)))))
+
+(deftest test-my-location
+  (let [board (parse-board (load-resource "case2.txt"))]
+    (is (= {:x 9 :y 8} (my-location board)))))
